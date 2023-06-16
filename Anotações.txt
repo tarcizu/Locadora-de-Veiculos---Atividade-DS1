@@ -4,3 +4,6 @@ Economico Hatch - 157,50
 Intermediario Hatch - 172,20
 Intermediario Sedan - 172,20
 Automatico Sedan - 193,25
+
+Dúvidas:
+- Um Cliente pode alugar mais de um veículo?
