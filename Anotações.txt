@@ -1,0 +1,6 @@
+Basico - 131,25
+Economico Sedan - 172,25
+Economico Hatch - 157,50
+Intermediario Hatch - 172,20
+Intermediario Sedan - 172,20
+Automatico Sedan - 193,25
