@@ -4,10 +4,10 @@ public class Veiculo {
     private String marca;
     private String modelo;
     private String categoria;
-    private String statusLocacao;
-    private String KMRodado;
+    private boolean statusLocacao;
+    private double KMRodado;
 
-    public Veiculo(String marca, String modelo, String categoria, String statusLocacao, String KMRodado) {
+    public Veiculo(String marca, String modelo, String categoria, boolean statusLocacao, double KMRodado) {
         this.marca = marca;
         this.modelo = modelo;
         this.categoria = categoria;
@@ -33,17 +33,18 @@ public class Veiculo {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    public String getStatusLocacao() {
+    public boolean getStatusLocacao() {
         return statusLocacao;
     }
-    public void setStatusLocacao(String statusLocacao) {
+    public void setStatusLocacao(boolean statusLocacao) {
         this.statusLocacao = statusLocacao;
     }
-    public String getKMRodado() {
+    public double getKMRodado() {
         return KMRodado;
     }
-    public void setLugares(String KMRodado) {
+    public void setLugares(double KMRodado) {
         this.KMRodado = KMRodado;
-    }
+    }    
+
 
 }
