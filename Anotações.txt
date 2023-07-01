@@ -7,3 +7,12 @@ Automatico Sedan - 193,25
 
 Dúvidas:
 - Um Cliente pode alugar mais de um veículo?
+- Cliente CNPJ pode alocar vários veículos
+- Forma de pagamento (Vai ter Caução, etc)
+
+=> Planos
+
+Diária
+Mensal com 5k km ao mês
+
+=> 

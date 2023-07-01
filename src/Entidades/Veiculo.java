@@ -1,49 +1,49 @@
 package Entidades;
 
 public class Veiculo {
-    private String motor;
-    private String cambio;
-    private String portas;
-    private String direcao;
-    private String lugares;
+    private String marca;
+    private String modelo;
+    private String categoria;
+    private String statusLocacao;
+    private String KMRodado;
 
-    public Veiculo(String motor, String cambio, String portas, String direcao, String lugares) {
-        this.motor = motor;
-        this.cambio = cambio;
-        this.portas = portas;
-        this.direcao = direcao;
-        this.lugares = lugares;
+    public Veiculo(String marca, String modelo, String categoria, String statusLocacao, String KMRodado) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.categoria = categoria;
+        this.statusLocacao = statusLocacao;
+        this.KMRodado = KMRodado;
     }
 
-    public String getMotor() {
-        return motor;
+    public String getMarca() {
+        return marca;
     }
-    public void setMotor(String motor) {
-        this.motor = motor;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
-    public String getCambio() {
-        return cambio;
+    public String getModelo() {
+        return modelo;
     }
-    public void setCambio(String cambio) {
-        this.cambio = cambio;
+    public void setCambio(String modelo) {
+        this.modelo = modelo;
     }
-    public String getPortas() {
-        return portas;
+    public String getCategoria() {
+        return categoria;
     }
-    public void setPortas(String portas) {
-        this.portas = portas;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
-    public String getDirecao() {
-        return direcao;
+    public String getStatusLocacao() {
+        return statusLocacao;
     }
-    public void setDirecao(String direcao) {
-        this.direcao = direcao;
+    public void setStatusLocacao(String statusLocacao) {
+        this.statusLocacao = statusLocacao;
     }
-    public String getLugares() {
-        return lugares;
+    public String getKMRodado() {
+        return KMRodado;
     }
-    public void setLugares(String lugares) {
-        this.lugares = lugares;
+    public void setLugares(String KMRodado) {
+        this.KMRodado = KMRodado;
     }
 
 }
