@@ -2,64 +2,49 @@ package Entidades;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Veiculo {
     private String marca;
     private String modelo;
     private int categoria;
     private boolean statusLocacao;
-    private double KMRodado;
+    private int kmRodado;
     private Cliente clienteEmPosse = null;
+    private LocalDate dataDeLocacao = null;
 
-    public Veiculo(String marca, String modelo, int categoria, double KMRodado) {
+    public Veiculo(String marca, String modelo, int categoria, int kmRodado) {
         this.marca = marca;
         this.modelo = modelo;
         this.categoria = categoria;
         this.statusLocacao = true;
-        this.KMRodado = KMRodado;
+        this.kmRodado = kmRodado;
     }
 
+    // GETS
     public String getMarca() {
         return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
     }
 
     public String getModelo() {
         return modelo;
     }
 
-    public void setCambio(String modelo) {
-        this.modelo = modelo;
-    }
-
     public int getCategoria() {
         return categoria;
-    }
-
-    public void setCategoria(int categoria) {
-        this.categoria = categoria;
     }
 
     public boolean getStatusLocacao() {
         return statusLocacao;
     }
 
-    public void setStatusLocacao(boolean statusLocacao) {
-        this.statusLocacao = statusLocacao;
+    public int getkmRodado() {
+        return kmRodado;
     }
 
-    public double getKMRodado() {
-        return KMRodado;
-    }
-
-    public void setLugares(double KMRodado) {
-        this.KMRodado = KMRodado;
-    }
-
+    // Função Cadastrar Veiculo
     public static Veiculo cadastrar(String marca, String modelo, int categoria, Double km) {
 
         Veiculo carro = new Veiculo(marca, modelo, categoria, km);
@@ -69,30 +54,15 @@ public class Veiculo {
     // Método para calcular o preço por diaria
     public static double precoPorCategoriaDiaria(int categoria) {
         switch (categoria) {
-            case 1: // Grupo A - Básico
-                return 131.25;
-            case 2: // Grupo B - Econômico
+
+            case 1: // Grupo B - Econômico
                 return 157.50;
-            case 3: // Grupo C - Intermediários
+            case 2: // Grupo C - Intermediários
                 return 172.20;
-            case 4: // Grupo D - Intermediário Automático
-                return 194.25;
-            case 5: // Grupo E - Utilitário
+            case 3: // Grupo E - Utilitário
                 return 225.75;
-            case 6: // Grupo E+ - Picape Compacta
-                return 330.12;
-            case 7: // Grupo F - SUV Manual
-                return 283.50;
-            case 8: // Grupo F - SUV Automático
-                return 330.12;
-            case 9: // Grupo G - Minivan Manual
-                return 282.66;
-            case 10: // Grupo G - Minivan Automático
-                return 327.01;
-            case 11: // Grupo H - Executivo
+            case 4: // Grupo H - Executivo
                 return 281.40;
-            case 12: // Grupo I - Pick-Up 4x4
-                return 562.80;
             default:
                 return 0;
         }
@@ -101,42 +71,40 @@ public class Veiculo {
     // Método para calcular o preço para mensalista
     public static double precoPorCategoriaMensal(int categoria) {
         switch (categoria) {
-            case 1: // Grupo A - Básico
-                return 2300.00;
-            case 2: // Grupo B - Econômico
+            case 1: // Grupo B - Econômico
                 return 2500.00;
-            case 3: // Grupo C - Intermediários
+            case 2: // Grupo C - Intermediários
                 return 2700.00;
-            case 4: // Grupo D - Intermediário Automático
+            case 3: // Grupo E - Utilitário
                 return 3200.00;
-            case 5: // Grupo E - Utilitário
-                return 3200.00;
-            case 6: // Grupo E+ - Picape Compacta
+            case 4: // Grupo H - Executivo
                 return 4000.00;
-            case 7: // Grupo F - SUV Manual
-                return 3700.00;
-            case 8: // Grupo F - SUV Automático
-                return 4200.00;
-            case 9: // Grupo G - Minivan Manual
-                return 3500.00;
-            case 10: // Grupo G - Minivan Automático
-                return 3800.00;
-            case 11: // Grupo H - Executivo
-                return 4000.00;
-            case 12: // Grupo I - Pick-Up 4x4
-                return 8400.00;
             default:
                 return 0;
         }
     }
 
-    public void alugar() {
-        if (statusLocacao == true) {
-            // System.out.println("Veículo alugado com sucesso!");
-            this.statusLocacao = false;
-        } else {
-            // System.out.println("Desculpe, o veículo já se encontra locado.");
+    public void alugar(LocalDate dataDeHoje, Cliente cliente) {
+        dataDeLocacao = dataDeHoje;
+        clienteEmPosse = cliente;
+        statusLocacao = false;
+
+    }
+
+    public String nomeDaCategoria() {
+
+        switch (this.getCategoria()) {
+            case 1:
+                return "Econômico";
+            case 2:
+                return "Intermediário";
+            case 3:
+                return "Executivo";
+            case 4:
+                return "Utilitário";
         }
+        return "Categoria não encontrada";
+
     }
 
     public void devolver() {
@@ -203,9 +171,23 @@ public class Veiculo {
         }
     }
 
+    public static Veiculo cadastrarVeiculo() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Digite a Marca do Veiculo: ");
+        String marca = sc.nextLine();
+        System.out.print("Digite o Modelo do Veiculo: ");
+        String modelo = sc.nextLine();
+        System.out.print("Digite a categoria do Veiculo: \n1 - Basico\n2- Intermediario\n\nEscolha: ");
+        int categoria = sc.nextInt();
+        System.out.print("Digite a Kilometragem do Veiculo: ");
+        Double km = sc.nextDouble();
+        return new Veiculo(marca, modelo, categoria, km);
+
+    }
+
     public String toString() {
-        return String.format("Marca: %s\nModelo: %s\nCategoria: %d\nKilometragem: %.0f\nDisponibilidade: %s\n\n",
-                this.marca, this.modelo, this.categoria, this.KMRodado,
+        return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nKilometragem: %dkm\nDisponibilidade: %s\n\n",
+                this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado,
                 this.statusLocacao == true ? "Disponivel" : "Alugado");
     }
 

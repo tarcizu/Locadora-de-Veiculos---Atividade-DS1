@@ -23,6 +23,10 @@ public class PessoaFisica extends Cliente {
 
     }
 
+    public String getCPF() {
+        return this.cpf;
+    }
+
     public static Cliente cadastrar() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Digite o nome do cliente: ");
@@ -35,5 +39,10 @@ public class PessoaFisica extends Cliente {
         String cpf = sc.nextLine();
         return new PessoaFisica(nome, email, telefone, cpf);
 
+    }
+
+    public String toString() {
+        return String.format("Nome: %s\nE-mail: %s\nTelefone: %s\nCPF: %s", this.getNome(), this.getEmail(),
+                this.getTelefone(), this.getCPF());
     }
 }
