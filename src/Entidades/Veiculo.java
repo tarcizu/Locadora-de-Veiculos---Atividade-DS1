@@ -169,22 +169,25 @@ public class Veiculo {
                                                                                      // milissegundos pelo valor obtido
                                                                                      // para obter o número de dias
             double taxaKMExcedido = 1.20; // Taxa de KM excedido.
-            double totalCustoKMExcedido = 0; // Variável para armazenar o  total de KM excedido.
+            double totalCustoKMExcedido = 0; // Variável para armazenar o total de KM excedido.
             if (diferencaEmDias < 3) {
                 if (diferencaEmDias == 2 && KMFinal - KMInicial > 200) {
                     totalCustoKMExcedido = (KMFinal - KMInicial) * taxaKMExcedido;
                     System.out.println("Qtd de dias locados: " + diferencaEmDias + " dias");
                     System.out.println("Total da diária: R$" + taxaDiaria * diferencaEmDias);
-                    System.out.println("Total de KM excedidos: " + (KMFinal - KMInicial) + "KM" + "\nValor total de KM excente: R$"
-                            + totalCustoKMExcedido);
+                    System.out.println(
+                            "Total de KM excedidos: " + (KMFinal - KMInicial) + "KM" + "\nValor total de KM excente: R$"
+                                    + totalCustoKMExcedido);
                 } else if (diferencaEmDias == 1 && KMFinal - KMInicial > 100) {
                     totalCustoKMExcedido = (KMFinal - KMInicial) * taxaKMExcedido;
                     System.out.println("Qtd de dias locado: " + diferencaEmDias + " dia");
                     System.out.println("Total da diária: R$" + taxaDiaria * diferencaEmDias);
-                    System.out.println("Total de KM excedidos: " + (KMFinal - KMInicial) + "KM" + "\nValor total de KM excente: R$"
-                            + totalCustoKMExcedido);
+                    System.out.println(
+                            "Total de KM excedidos: " + (KMFinal - KMInicial) + "KM" + "\nValor total de KM excente: R$"
+                                    + totalCustoKMExcedido);
                 }
-                return (taxaDiaria * diferencaEmDias) + totalCustoKMExcedido; // Retorna o valor da taxa de aluguel + taxa de km excedido
+                return (taxaDiaria * diferencaEmDias) + totalCustoKMExcedido; // Retorna o valor da taxa de aluguel +
+                                                                              // taxa de km excedido
             } else {
                 System.out.println("Quilometragem livre a partir da 3ª diária.");
                 totalCustoKMExcedido = 0;
