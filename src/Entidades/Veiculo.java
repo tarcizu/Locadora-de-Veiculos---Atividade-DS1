@@ -10,6 +10,7 @@ public class Veiculo {
     private int categoria;
     private boolean statusLocacao;
     private double KMRodado;
+    private Cliente clienteEmPosse = null;
 
     public Veiculo(String marca, String modelo, int categoria, double KMRodado) {
         this.marca = marca;
