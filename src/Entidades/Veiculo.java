@@ -193,7 +193,7 @@ public class Veiculo {
     public String toString() {
         return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nDisponibilidade: %s\n\n",
                 this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado,
-                this.statusLocacao == true ? "Disponível" : "Alugado");
+                this.statusLocacao == true ? "Disponível" : String.format(clienteEmPosse.getNome()));
     }
 
 }

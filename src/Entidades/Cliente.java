@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class Cliente {
@@ -46,8 +47,8 @@ public abstract class Cliente {
     public String getCPF() {
     }
 
-    public void alugarCarro(Veiculo carro) {
-        
+    public void alugarCarro(Veiculo carro, LocalDate data) {
+
     }
 
 }

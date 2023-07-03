@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,19 +10,6 @@ public class PessoaFisica extends Cliente {
     public PessoaFisica(String nome, String email, String telefone, String cpf) {
         super(nome, email, telefone);
         this.cpf = cpf;
-    }
-
-    public void alugarCarro(Veiculo carro) {
-        if (this.getAlugados().size() > 0) {
-            System.out.println("O cliente já possui um veiculo alugado");
-
-        } else {
-            carro.alugar();
-            this.getAlugados().add(carro);
-            System.out.println("Carro alugado com sucesso");
-
-        }
-
     }
 
     public String getCPF() {
@@ -52,8 +40,22 @@ public class PessoaFisica extends Cliente {
 
     }
 
+    public void alugarCarro(Veiculo carro, LocalDate data) {
+
+        if (this.getAlugados().size() == 0) {
+            carro.alugar(data, this);
+            getAlugados().add(carro);
+
+        } else {
+            System.out.println("Não é possivel realizar a locação pois ja existe um carro locado");
+
+        }
+
+    }
+
     public String toString() {
-        return String.format("Nome: %s\nE-mail: %s\nTelefone: %s\nCPF: %s", this.getNome(), this.getEmail(),
+        return String.format("Nome: %s\nE-mail: %s\nTelefone: %s\nCPF: %s\n", this.getNome(),
+                this.getEmail(),
                 this.getTelefone(), this.getCPF());
     }
 }

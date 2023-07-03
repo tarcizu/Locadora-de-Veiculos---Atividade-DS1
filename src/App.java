@@ -53,7 +53,7 @@ public class App {
                         }
                     }
                     if (clienteAtual != null) {
-                        menuDoCliente(clienteAtual, veiculos);
+                        menuDoCliente(clienteAtual, veiculos, dataDeHoje);
                     }
                     clienteAtual = null;
 
@@ -128,7 +128,7 @@ public class App {
         veiculos.add(new Veiculo("Ford", "Fiesta", 1, 45781));
     }
 
-    public static void menuDoCliente(Cliente cliente, ArrayList<Veiculo> veiculos) {
+    public static void menuDoCliente(Cliente cliente, ArrayList<Veiculo> veiculos, LocalDate data) {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -149,12 +149,16 @@ public class App {
                     System.out.println("Digite o ID do veículo que deseja locar: ");
                     int IDVeiculoLocacao = sc.nextInt();
                     Veiculo veiculoLocado = veiculos.get(IDVeiculoLocacao);
-                    veiculoLocado.setStatusLocacao(false);
-                    veiculoLocado.setDataDeLocacao(LocalDate.now());
-                    System.out.println(cliente.getNome() + " o carro Locado com sucesso na data: "
-                            + veiculoLocado.getDataDeLocacao());
-                    sc.nextLine();
-                    sc.nextLine();
+
+                    cliente.alugarCarro(veiculoLocado, data);
+
+                    // veiculoLocado.setStatusLocacao(false);
+                    // veiculoLocado.setDataDeLocacao(LocalDate.now());
+                    // System.out.println(cliente.getNome() + " o carro Locado com sucesso na data:
+                    // "
+                    // + veiculoLocado.getDataDeLocacao());
+                    // sc.nextLine();
+                    // sc.nextLine();
                     break;
                 case 2:
                     for (Veiculo carro : veiculos) {
