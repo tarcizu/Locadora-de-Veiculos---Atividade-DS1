@@ -40,15 +40,19 @@ public class Veiculo {
         return statusLocacao;
     }
 
-    public int getkmRodado() {
-        return kmRodado;
+    public void setStatusLocacao(boolean statusLocacao) {
+        this.statusLocacao = statusLocacao;
     }
 
-    // Função Cadastrar Veiculo
-    public static Veiculo cadastrar(String marca, String modelo, int categoria, Double km) {
+    public LocalDate getDataDeLocacao(){
+        return dataDeLocacao;
+    }
+    public void setDataDeLocacao(LocalDate dataDeLocacao){
+        this.dataDeLocacao = dataDeLocacao;
+    }
 
-        Veiculo carro = new Veiculo(marca, modelo, categoria, km);
-        return carro;
+    public int getkmRodado() {
+        return kmRodado;
     }
 
     // Método para calcular o preço por diaria
@@ -126,17 +130,9 @@ public class Veiculo {
             Date dataInicio = dateFormat.parse(dataInicioStr); // Converte a data para o formato Date
             Date dataFim = dateFormat.parse(dataFimStr); // Converte a data para o formato Date
             double taxaDiaria = precoPorCategoriaDiaria(categoria); // Pega o preço da categoria por DIARIA!
-            long diferencaEmMilissegundos = dataFim.getTime() - dataInicio.getTime(); // Calculando a diferença em
-                                                                                      // milissegundos entre a data de
-                                                                                      // término e a data de início. A
-                                                                                      // função getTime() retorna o
-                                                                                      // número de milissegundos desde
-                                                                                      // 1º de janeiro de 1970 até a
-                                                                                      // data especificada.
+            long diferencaEmMilissegundos = dataFim.getTime() - dataInicio.getTime();
             long diferencaEmDias = diferencaEmMilissegundos / (24 * 60 * 60 * 1000); // Converte milissegundos em dias.
-                                                                                     // Dividimos a diferença em
-                                                                                     // milissegundos pelo valor obtido
-                                                                                     // para obter o número de dias
+
             double taxaKMExcedido = 1.20; // Taxa de KM excedido.
             double totalCustoKMExcedido = 0; // Variável para armazenar o total de KM excedido.
             if (diferencaEmDias < 3) {

@@ -62,7 +62,7 @@ public class App {
                     break;
                 case 3:
                     System.out.print(
-                            "Qual tipo de Cliente quer Cadastrar:\n\n1 - Pessoa Fisica\n2 - Pessoa Juridica\n\nEscolha: ");
+                            "Qual tipo de Cliente quer Cadastrar:\n\n1 - Pessoa Física\n2 - Pessoa Jurídica\n\nEscolha: ");
                     int escolha2 = sc.nextInt();
                     if (escolha2 == 1) {
                         Cliente cadastrado = PessoaFisica.cadastrar(clientes);
@@ -122,27 +122,38 @@ public class App {
 
         cliente.add(new PessoaFisica("Michelle", "michelle@senai.com.br", "(71) 9988-7766", "123"));
         veiculos.add(new Veiculo("Tesla", "Model T", 2, 2000));
+        veiculos.add(new Veiculo("Ford", "Fiesta", 1, 45781));
     }
 
-    public static void menuDoCliente(Cliente cliente, ArrayList veiculos) {
+    public static void menuDoCliente(Cliente cliente, ArrayList<Veiculo> veiculos) {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
             limparTela();
             System.out.printf("-----%s-----", cliente.getNome());
 
-            System.out
-                    .print("\n\n1 - Alugar Carro\n2 - Devolver Carro\n3 - Consultar Debito\n\n4 - Sair\n\nEscolha: ");
+            System.out.print("\n\n1 - Alugar Carro\n2 - Devolver Carro\n3 - Consultar Débito\n\n4 - Sair\n\nEscolha: ");
             int escolha = sc.nextInt();
+            System.out.println("");
             switch (escolha) {
                 case 1:
-                    // for (Veiculo carro : veiculos) {
-                    // if (carro.getStatusLocacao() == true) {
-                    // System.out.println(carro);
+                    for (Veiculo carro : veiculos) {
+                        if (carro.getStatusLocacao()) {
+                            int posicao = veiculos.indexOf(carro);
+                            System.out.println("ID: " + posicao + "\n" + carro);
+                        }
+                        System.out.println("Digite o ID do veículo que deseja locar: ");
+                        int escolhaVeiculoLocacao = sc.nextInt();
+                        veiculos.get(escolhaVeiculoLocacao).setStatusLocacao(false);
+                        veiculos.get(escolhaVeiculoLocacao).setDataDeLocacao(LocalDate.now());
+                        System.out.println("Carro Locado com Sucesso!");
+                        sc.nextLine();
+                        sc.nextLine();
 
-                    // }
-                    // }
-                    // AQUI DA DANDO B.O
+                //NÃO ESTÁ LISTANDO TODOS OS CARROS DISPONÍVEIS PARA LOCAÇÃO;
+
+                        continue;
+                    }
                     sc.nextLine();
                     sc.nextLine();
 
