@@ -177,18 +177,18 @@ public class Veiculo {
         String marca = sc.nextLine();
         System.out.print("Digite o Modelo do Veiculo: ");
         String modelo = sc.nextLine();
-        System.out.print("Digite a categoria do Veiculo: \n1 - Basico\n2- Intermediario\n\nEscolha: ");
+        System.out.print("Digite a categoria do Veiculo: \n1 - Básico\n2- Intermediário\n\nEscolha: ");
         int categoria = sc.nextInt();
         System.out.print("Digite a Kilometragem do Veiculo: ");
-        Double km = sc.nextDouble();
+        int km = sc.nextInt();
         return new Veiculo(marca, modelo, categoria, km);
 
     }
 
     public String toString() {
-        return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nKilometragem: %dkm\nDisponibilidade: %s\n\n",
+        return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nDisponibilidade: %s\n\n",
                 this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado,
-                this.statusLocacao == true ? "Disponivel" : "Alugado");
+                this.statusLocacao == true ? "Disponível" : "Alugado");
     }
 
 }

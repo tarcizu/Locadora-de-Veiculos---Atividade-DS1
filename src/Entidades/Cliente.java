@@ -43,6 +43,9 @@ public abstract class Cliente {
         }
     }
 
+    public String getCPF() {
+    }
+
     public void alugarCarro(Veiculo carro) {
     }
 

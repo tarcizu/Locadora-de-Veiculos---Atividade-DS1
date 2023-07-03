@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PessoaFisica extends Cliente {
@@ -27,7 +28,7 @@ public class PessoaFisica extends Cliente {
         return this.cpf;
     }
 
-    public static Cliente cadastrar() {
+    public static Cliente cadastrar(ArrayList<Cliente> clientes) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Digite o nome do cliente: ");
         String nome = sc.nextLine();
@@ -37,6 +38,16 @@ public class PessoaFisica extends Cliente {
         String telefone = sc.nextLine();
         System.out.print("Digite o cpf do cliente: ");
         String cpf = sc.nextLine();
+        for (Cliente cliente : clientes) {
+            if (cliente.getCPF().equals(cpf)) {
+                System.out.println("Não foi possivel cadastrar o CPF");
+                sc.nextLine();
+
+                return null;
+
+            }
+
+        }
         return new PessoaFisica(nome, email, telefone, cpf);
 
     }

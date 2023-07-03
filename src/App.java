@@ -23,14 +23,40 @@ public class App {
         ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
         cadastroPadrao(clientes, veiculos);
 
+        Cliente clienteAtual = null;
+
         // Menu
-        while (true) {
+        while (true)
+
+        {
             limparTela();
             System.out.printf(
                     "JavaCar\nData de Hoje: %s\n\n1 - Realizar Locação/Devolução\n\n2 - Cadastrar Veiculo\n3 - Cadastrar Cliente\n\n4 - Listar Frota\n5 - Listar Clientes\n\n6 - Avançar Data\n\nEscolha: ",
                     dataDeHoje.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             int escolha = sc.nextInt();
+            sc.nextLine();
             switch (escolha) {
+                case 1:
+
+                    System.out.print("Qual o CPF do cliente buscado: ");
+
+                    String cpf = sc.nextLine();
+
+                    for (Cliente cliente : clientes) {
+                        // System.out.println(cliente.getCPF());
+
+                        if (cliente.getCPF().equals(cpf)) {
+                            System.out.println("Achou!!");
+
+                            clienteAtual = cliente;
+                        }
+                    }
+                    if (clienteAtual != null) {
+                        menuDoCliente(clienteAtual, veiculos);
+                    }
+                    clienteAtual = null;
+
+                    break;
                 case 2:
                     veiculos.add(Veiculo.cadastrarVeiculo());
                     break;
@@ -39,12 +65,17 @@ public class App {
                             "Qual tipo de Cliente quer Cadastrar:\n\n1 - Pessoa Fisica\n2 - Pessoa Juridica\n\nEscolha: ");
                     int escolha2 = sc.nextInt();
                     if (escolha2 == 1) {
-                        clientes.add(PessoaFisica.cadastrar());
+                        Cliente cadastrado = PessoaFisica.cadastrar(clientes);
+                        if (cadastrado != null) {
+
+                            clientes.add(cadastrado);
+                        }
 
                     } else if (escolha2 == 2) {
                         System.out.println("FALTA FAZER");
 
                     }
+                    ;
 
                     break;
                 case 4:
@@ -89,8 +120,41 @@ public class App {
 
     public static void cadastroPadrao(ArrayList cliente, ArrayList veiculos) {
 
-        cliente.add(new PessoaFisica("Michelle", "michelle@senai.com.br", "(71) 9988-7766", "923.283.292-45"));
+        cliente.add(new PessoaFisica("Michelle", "michelle@senai.com.br", "(71) 9988-7766", "123"));
         veiculos.add(new Veiculo("Tesla", "Model T", 2, 2000));
+    }
+
+    public static void menuDoCliente(Cliente cliente, ArrayList veiculos) {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            limparTela();
+            System.out.printf("-----%s-----", cliente.getNome());
+
+            System.out
+                    .print("\n\n1 - Alugar Carro\n2 - Devolver Carro\n3 - Consultar Debito\n\n4 - Sair\n\nEscolha: ");
+            int escolha = sc.nextInt();
+            switch (escolha) {
+                case 1:
+                    // for (Veiculo carro : veiculos) {
+                    // if (carro.getStatusLocacao() == true) {
+                    // System.out.println(carro);
+
+                    // }
+                    // }
+                    // AQUI DA DANDO B.O
+                    sc.nextLine();
+                    sc.nextLine();
+
+                    continue;
+                case 4:
+                    break;
+                default:
+                    continue;
+            }
+            break;
+        }
+
     }
 
 }
