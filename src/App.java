@@ -17,6 +17,7 @@ public class App {
 
         // Variável com a data Atual
         LocalDate dataDeHoje = LocalDate.now();
+        LocalDate diaDevolucao = null;
 
         // Arrys Banco de Dados
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -80,7 +81,8 @@ public class App {
                     break;
                 case 4:
                     for (Veiculo carro : veiculos) {
-                        System.out.println(carro);
+                        int posicao = veiculos.indexOf(carro);
+                        System.out.println("ID: " + posicao + "\n" + carro);
                     }
                     sc.nextLine();
                     sc.nextLine();
@@ -121,6 +123,7 @@ public class App {
     public static void cadastroPadrao(ArrayList cliente, ArrayList veiculos) {
 
         cliente.add(new PessoaFisica("Michelle", "michelle@senai.com.br", "(71) 9988-7766", "123"));
+        cliente.add(new PessoaFisica("Washington", "washington@senai.com.br", "(71) 3132-7766", "052"));
         veiculos.add(new Veiculo("Tesla", "Model T", 2, 2000));
         veiculos.add(new Veiculo("Ford", "Fiesta", 1, 45781));
     }
@@ -139,25 +142,32 @@ public class App {
                 case 1:
                     for (Veiculo carro : veiculos) {
                         if (carro.getStatusLocacao()) {
-                            int posicao = veiculos.indexOf(carro);
-                            System.out.println("ID: " + posicao + "\n" + carro);
+                            int posicaoNoArray = veiculos.indexOf(carro);
+                            System.out.println("ID: " + posicaoNoArray + "\n" + carro);
                         }
-                        System.out.println("Digite o ID do veículo que deseja locar: ");
-                        int escolhaVeiculoLocacao = sc.nextInt();
-                        veiculos.get(escolhaVeiculoLocacao).setStatusLocacao(false);
-                        veiculos.get(escolhaVeiculoLocacao).setDataDeLocacao(LocalDate.now());
-                        System.out.println("Carro Locado com Sucesso!");
-                        sc.nextLine();
-                        sc.nextLine();
-
-                //NÃO ESTÁ LISTANDO TODOS OS CARROS DISPONÍVEIS PARA LOCAÇÃO;
-
-                        continue;
+                    }
+                    System.out.println("Digite o ID do veículo que deseja locar: ");
+                    int IDVeiculoLocacao = sc.nextInt();
+                    Veiculo veiculoLocado = veiculos.get(IDVeiculoLocacao);
+                    veiculoLocado.setStatusLocacao(false);
+                    veiculoLocado.setDataDeLocacao(LocalDate.now());
+                    System.out.println(cliente.getNome() + " o carro Locado com sucesso na data: "
+                            + veiculoLocado.getDataDeLocacao());
+                    sc.nextLine();
+                    sc.nextLine();
+                    break;
+                case 2:
+                    for (Veiculo carro : veiculos) {
+                        if (carro.getStatusLocacao() == false) {
+                            int posicaoNoArray = veiculos.indexOf(carro);
+                            System.out.println("ID: " + posicaoNoArray + "\n" + carro);
+                            System.out.println(
+                                    "Foi locado no dia: " + carro.getDataDeLocacao() + " por " + cliente.getNome());
+                        }
                     }
                     sc.nextLine();
                     sc.nextLine();
-
-                    continue;
+                    break;
                 case 4:
                     break;
                 default:

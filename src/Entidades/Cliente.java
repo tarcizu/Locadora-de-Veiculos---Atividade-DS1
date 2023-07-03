@@ -47,6 +47,7 @@ public abstract class Cliente {
     }
 
     public void alugarCarro(Veiculo carro) {
+        
     }
 
 }

@@ -3,6 +3,7 @@ package Entidades;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -14,6 +15,7 @@ public class Veiculo {
     private int kmRodado;
     private Cliente clienteEmPosse = null;
     private LocalDate dataDeLocacao = null;
+    private LocalDate dataDeDevolucao = null;
 
     public Veiculo(String marca, String modelo, int categoria, int kmRodado) {
         this.marca = marca;
@@ -44,11 +46,20 @@ public class Veiculo {
         this.statusLocacao = statusLocacao;
     }
 
-    public LocalDate getDataDeLocacao(){
+    public LocalDate getDataDeLocacao() {
         return dataDeLocacao;
     }
-    public void setDataDeLocacao(LocalDate dataDeLocacao){
+
+    public void setDataDeLocacao(LocalDate dataDeLocacao) {
         this.dataDeLocacao = dataDeLocacao;
+    }
+
+    public LocalDate getDataDeDevolucao() {
+        return dataDeDevolucao;
+    }
+
+    public void dataDeDevolucao(LocalDate dataDeDevolucao) {
+        this.dataDeDevolucao = dataDeDevolucao;
     }
 
     public int getkmRodado() {
@@ -161,8 +172,6 @@ public class Veiculo {
             return (taxaDiaria * diferencaEmDias) + totalCustoKMExcedido; // Retorna o valor da taxa de aluguel.
         } catch (ParseException e) {
             System.out.println("Certifique-se de que as datas estão no formato dd/MM/yyyy"); // Erro por formatação
-                                                                                             // incorreta da
-                                                                                             // data(string)
             return 0.0;
         }
     }
