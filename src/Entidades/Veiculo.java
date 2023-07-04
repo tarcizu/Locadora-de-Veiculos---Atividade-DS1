@@ -15,7 +15,6 @@ public class Veiculo {
     private int kmRodado;
     private Cliente clienteEmPosse = null;
     private LocalDate dataDeLocacao = null;
-    private LocalDate dataDeDevolucao = null;
 
     public Veiculo(String marca, String modelo, int categoria, int kmRodado) {
         this.marca = marca;
@@ -52,14 +51,6 @@ public class Veiculo {
 
     public void setDataDeLocacao(LocalDate dataDeLocacao) {
         this.dataDeLocacao = dataDeLocacao;
-    }
-
-    public LocalDate getDataDeDevolucao() {
-        return dataDeDevolucao;
-    }
-
-    public void dataDeDevolucao(LocalDate dataDeDevolucao) {
-        this.dataDeDevolucao = dataDeDevolucao;
     }
 
     public int getkmRodado() {
@@ -99,11 +90,18 @@ public class Veiculo {
         }
     }
 
+    // Método que realiza o aluguel do carro
     public void alugar(LocalDate dataDeHoje, Cliente cliente) {
         dataDeLocacao = dataDeHoje;
         clienteEmPosse = cliente;
         statusLocacao = false;
 
+    }
+
+    // Método que realiza a devolução do carro
+    public void devolver(LocalDate dataDevolucao) {
+        this.statusLocacao = true;
+        clienteEmPosse = null;
     }
 
     public String nomeDaCategoria() {
@@ -120,12 +118,6 @@ public class Veiculo {
         }
         return "Categoria não encontrada";
 
-    }
-
-    public void devolver(LocalDate dataDevolucao, Cliente cliente) {
-        this.statusLocacao = true;
-        this.dataDeDevolucao = dataDevolucao;
-        clienteEmPosse = null;
     }
 
     // Calcula o preço do aluguel. A data vai ser recebida como STRING
@@ -189,13 +181,15 @@ public class Veiculo {
 
     public String toString() {
         if (this.statusLocacao == false) {
-            return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nLocado por: %s\n\n",
+            return String.format(
+                    "Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nDisponibilidade: Locado por %s em %s\n\n",
                     this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado,
-                    String.format(clienteEmPosse.getNome()));
+                    String.format(clienteEmPosse.getNome()),
+                    this.getDataDeLocacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         } else {
-            return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nDisponibilidade: %s\n\n",
-                    this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado,
-                    this.statusLocacao == true ? "Disponível" : "Alugado");
+            return String.format(
+                    "Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nDisponibilidade: Disponível\n\n",
+                    this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado);
         }
     }
 

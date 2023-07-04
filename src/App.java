@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import Entidades.Cliente;
 import Entidades.PessoaFisica;
+import Entidades.PessoaJuridica;
 import Entidades.Veiculo;
 
 public class App {
@@ -15,21 +16,21 @@ public class App {
 
         Scanner sc = new Scanner(System.in);
 
-        // Variável com a data Atual
+        // Cria Variável com a data Atual
         LocalDate dataDeHoje = LocalDate.now();
-        LocalDate diaDevolucao = null;
 
-        // Arrys Banco de Dados
+        // Cria os Arrays de Banco de Dados
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+
+        // Chama a Função que já inicia o código com coisas cadastradas
         cadastroPadrao(clientes, veiculos);
 
+        // Cria o objeto que recebera o cliente que se esta gerenciando
         Cliente clienteAtual = null;
 
-        // Menu
-        while (true)
-
-        {
+        // Inicia o Menu
+        while (true) {
             limparTela();
             System.out.printf(
                     "JavaCar\nData de Hoje: %s\n\n1 - Realizar Locação/Devolução\n\n2 - Cadastrar Veiculo\n3 - Cadastrar Cliente\n\n4 - Listar Frota\n5 - Listar Clientes\n\n6 - Avançar Data\n\nEscolha: ",
@@ -38,16 +39,45 @@ public class App {
             sc.nextLine();
             switch (escolha) {
                 case 1:
-                    System.out.print("Qual o CPF do cliente buscado: ");
-                    String cpf = sc.nextLine();
+                    System.out.print("Qual o Tipo de Cliente\n\n1 - Pessoa Fisica\n2 - Pessoa Jurídica\n\nEscolha: ");
+                    int escolha3 = sc.nextInt();
+                    if (escolha3 == 1) {
+                        System.out.print("Qual o CPF do cliente buscado: ");
+                        sc.nextLine();
+                        String cpf = sc.nextLine();
 
-                    for (Cliente cliente : clientes) {
-                        if (cliente.getCPF().equals(cpf)) {
-                            clienteAtual = cliente;
+                        for (Cliente cliente : clientes) {
+                            if (cliente.getCPF().equals(cpf)) {
+                                clienteAtual = cliente;
+                            }
                         }
+                        if (clienteAtual != null) {
+                            menuDoCliente(clienteAtual, veiculos, dataDeHoje);
+                        } else {
+                            System.out.println("CPF não encontrado!");
+                            sc.nextLine();
+
+                        }
+
                     }
-                    if (clienteAtual != null) {
-                        menuDoCliente(clienteAtual, veiculos, dataDeHoje);
+                    if (escolha3 == 2) {
+                        System.out.print("Qual o CNPJ do cliente buscado: ");
+                        sc.nextLine();
+                        String cnpj = sc.nextLine();
+
+                        for (Cliente cliente : clientes) {
+                            if (cliente.getCNPJ().equals(cnpj)) {
+                                clienteAtual = cliente;
+                            }
+                        }
+                        if (clienteAtual != null) {
+                            menuDoCliente(clienteAtual, veiculos, dataDeHoje);
+                        } else {
+                            System.out.println("CNPJ não encontrado!");
+                            sc.nextLine();
+
+                        }
+
                     }
                     clienteAtual = null;
                     break;
@@ -64,11 +94,12 @@ public class App {
                             clientes.add(cadastrado);
                         }
                     } else if (escolha2 == 2) {
-                        System.out.println("FALTA FAZER");
+                        Cliente cadastrado = PessoaJuridica.cadastrar(clientes);
+                        if (cadastrado != null) {
+                            clientes.add(cadastrado);
+                        }
 
                     }
-                    ;
-
                     break;
                 case 4:
                     for (Veiculo carro : veiculos) {
@@ -83,11 +114,11 @@ public class App {
                     System.out.println("LISTA DE CLIENTES\n");
 
                     for (Cliente cliente : clientes) {
-                        System.out.println(cliente);
-                        System.out.println("");
+                        System.out.print(cliente);
+                        cliente.listarAlugados();
+                        System.out.println("\n\n");
 
                     }
-                    sc.nextLine();
                     sc.nextLine();
                     break;
                 case 6:
@@ -106,14 +137,6 @@ public class App {
 
     }
 
-    public static void cadastroPadrao(ArrayList cliente, ArrayList veiculos) {
-
-        cliente.add(new PessoaFisica("Michelle", "michelle@senai.com.br", "(71) 9988-7766", "123"));
-        cliente.add(new PessoaFisica("Washington", "washington@senai.com.br", "(71) 3132-7766", "052"));
-        veiculos.add(new Veiculo("Tesla", "Model T", 2, 2000));
-        veiculos.add(new Veiculo("Ford", "Fiesta", 1, 45781));
-    }
-
     public static void menuDoCliente(Cliente cliente, ArrayList<Veiculo> veiculos, LocalDate data) {
         Scanner sc = new Scanner(System.in);
 
@@ -126,40 +149,52 @@ public class App {
             System.out.println("");
             switch (escolha) {
                 case 1:
+                    ArrayList<Veiculo> carrosexibicao = new ArrayList<Veiculo>();
                     for (Veiculo carro : veiculos) {
-                        if (carro.getStatusLocacao()) {
-                            int posicaoNoArray = veiculos.indexOf(carro);
-                            System.out.println("ID: " + posicaoNoArray + "\n" + carro);
+                        if (carro.getStatusLocacao() == true) {
+                            carrosexibicao.add(carro);
                         }
                     }
-                    System.out.println("Digite o ID do veículo que deseja locar: ");
-                    int IDVeiculoLocacao = sc.nextInt();
-                    Veiculo veiculoLocado = veiculos.get(IDVeiculoLocacao);
+                    int indice = 0;
+                    for (Veiculo carro : carrosexibicao) {
+                        System.out.printf("ID: %d\n", indice++);
+                        System.out.println(carro);
 
-                    cliente.alugarCarro(veiculoLocado, data);
+                    }
+                    System.out.print("Digite o ID do veículo que deseja locar: ");
+                    int IDVeiculoLocacao = sc.nextInt();
+                    if (IDVeiculoLocacao <= indice) {
+                        Veiculo veiculoLocado = carrosexibicao.get(IDVeiculoLocacao);
+
+                        cliente.alugarCarro(veiculoLocado, data);
+
+                    } else {
+                        System.out.println("ID digitado invalido");
+                        sc.nextLine();
+                        sc.nextLine();
+                        continue;
+
+                    }
 
                     break;
                 case 2:
-                    if (cliente.getAlugados().size() > 0) {
-                        System.out.println("Veículos alugados pelo cliente:");
+                    ArrayList<Veiculo> alugados = cliente.getAlugados();
+                    if (alugados.size() != 0) {
 
-                        for (Object obj : cliente.getAlugados()) {
-                            if (obj instanceof Veiculo) {
-                                Veiculo carro = (Veiculo) obj;
-                                int posicaoNoArray = cliente.getAlugados().indexOf(carro);
-                                System.out.println("ID: " + posicaoNoArray + "\n" + carro);
-                            }
+                        int indice2 = 0;
+                        for (Veiculo veiculo : alugados) {
+                            System.out.printf("ID: %d\nCarro: %s/%s - Categoria: %s - Data de Locação: %s", indice2,
+                                    veiculo.getMarca(),
+                                    veiculo.getModelo(),
+                                    veiculo.nomeDaCategoria(),
+                                    veiculo.getDataDeLocacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
                         }
-
-                        System.out.println("Digite o ID do veículo que deseja devolver: ");
+                        System.out.print("\nDigite o ID do veículo que deseja devolver: ");
                         int IDVeiculoDevolucao = sc.nextInt();
-                        Veiculo veiculoDevolvido = (Veiculo) cliente.getAlugados().get(IDVeiculoDevolucao);
-
+                        Veiculo veiculoDevolvido = alugados.get(IDVeiculoDevolucao);
                         cliente.devolverCarro(veiculoDevolvido, data);
-                        break;
-                    } else {
-                        System.out.println("Não existem veículos alugados pelo cliente.");
-                        sc.nextLine();
+
                     }
                     sc.nextLine();
                     sc.nextLine();
@@ -171,5 +206,14 @@ public class App {
             }
             break;
         }
+    }
+
+    public static void cadastroPadrao(ArrayList cliente, ArrayList veiculos) {
+
+        cliente.add(new PessoaFisica("Michelle", "michelle@senai.com.br", "(71) 9988-7766", "123"));
+        cliente.add(new PessoaFisica("Washington", "washington@senai.com.br", "(71) 3132-7766", "052"));
+        cliente.add(new PessoaJuridica("Embasa", "embasa@agua.com.br", "(71) 3132-1212", "171"));
+        veiculos.add(new Veiculo("Tesla", "Model T", 2, 2000));
+        veiculos.add(new Veiculo("Ford", "Fiesta", 1, 45781));
     }
 }
