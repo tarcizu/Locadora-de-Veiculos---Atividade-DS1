@@ -53,23 +53,6 @@ public class PessoaFisica extends Cliente {
         }
     }
 
-    // public void devolverCarro(Veiculo carro, LocalDate data) {
-    // Scanner sc = new Scanner(System.in);
-
-    // if (this.getAlugados().size() == 0) {
-    // System.out.println("Não é possivel devolver o carro pois não existe nenhum
-    // carro locado");
-    // sc.nextLine();
-    // } else {
-    // // errado
-    // carro.devolver(data, this);
-    // int IdparaRemocao = getAlugados().indexOf(carro);
-    // getAlugados().remove(IdparaRemocao);
-
-    // sc.nextLine();
-    // }
-    // }
-
     public String toString() {
 
         return String.format("PESSOA FÍSICA\nNome: %s\nE-mail: %s\nTelefone: %s\nCPF: %s\n", this.getNome(),

@@ -42,16 +42,8 @@ public class Veiculo {
         return statusLocacao;
     }
 
-    public void setStatusLocacao(boolean statusLocacao) {
-        this.statusLocacao = statusLocacao;
-    }
-
     public LocalDate getDataDeLocacao() {
         return dataDeLocacao;
-    }
-
-    public void setDataDeLocacao(LocalDate dataDeLocacao) {
-        this.dataDeLocacao = dataDeLocacao;
     }
 
     public int getkmRodado() {
@@ -82,6 +74,7 @@ public class Veiculo {
                         NdeDiariasExcedentes * precoPorCategoriaDiaria());
 
                 total += NdeDiariasExcedentes * precoPorCategoriaDiaria();
+
             }
 
             total += NdeMensal * precoPorCategoriaMensal();

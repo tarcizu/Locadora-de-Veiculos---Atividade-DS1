@@ -47,7 +47,12 @@ public class App {
                         String cpf = sc.nextLine();
 
                         for (Cliente cliente : clientes) {
-                            if (cliente.getCPF().equals(cpf)) {
+                            if (cliente.getCPF().equals(cpf) && cpf != "") {
+                                System.out.println("Entrou aqui");
+                                System.out.println(cpf);
+                                sc.nextLine();
+                                sc.nextLine();
+
                                 clienteAtual = cliente;
                             }
                         }
@@ -66,7 +71,7 @@ public class App {
                         String cnpj = sc.nextLine();
 
                         for (Cliente cliente : clientes) {
-                            if (cliente.getCNPJ().equals(cnpj)) {
+                            if (cliente.getCNPJ().equals(cnpj) && cnpj != "") {
                                 clienteAtual = cliente;
                             }
                         }
@@ -205,6 +210,52 @@ public class App {
 
                                 Veiculo veiculoDevolvido = alugados.get(IDVeiculoDevolucao);
                                 cliente.devolverCarro(veiculoDevolvido, data, kmAtual);
+                            }
+
+                        } else {
+                            System.out.println("ID digitado invalido");
+                            sc.nextLine();
+                            sc.nextLine();
+                            continue;
+
+                        }
+
+                    } else {
+                        System.out.println("Cliente não possui carros locados");
+                        sc.nextLine();
+                        sc.nextLine();
+                        continue;
+
+                    }
+                    sc.nextLine();
+                    sc.nextLine();
+                    break;
+                case 3:
+                    ArrayList<Veiculo> alugados2 = cliente.getAlugados();
+                    if (alugados2.size() != 0) {
+
+                        int indice3 = 0;
+                        for (Veiculo veiculo : alugados2) {
+                            System.out.printf("ID: %d\nCarro: %s/%s - Categoria: %s - Data de Locação: %s\n", indice3++,
+                                    veiculo.getMarca(),
+                                    veiculo.getModelo(),
+                                    veiculo.nomeDaCategoria(),
+                                    veiculo.getDataDeLocacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+                        }
+                        System.out.print("\n\nDigite o ID do veículo que deseja devolver: ");
+                        int IDVeiculoDevolucao = sc.nextInt();
+                        if (IDVeiculoDevolucao < alugados2.size()) {
+                            System.out.print("Digite a quilometragem atual do veiculo: ");
+                            int kmAtual = sc.nextInt();
+                            if (kmAtual < alugados2.get(IDVeiculoDevolucao).getkmRodado()) {
+                                System.out.println("Quilometragem informada invalida");
+                                sc.nextLine();
+                                sc.nextLine();
+                                continue;
+                            } else {
+
+                                alugados2.get(IDVeiculoDevolucao).gerarNotaFiscal(data, kmAtual);
                             }
 
                         } else {
