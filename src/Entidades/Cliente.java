@@ -49,7 +49,7 @@ public abstract class Cliente {
 
             System.out.println("CARROS LOCADOS:");
             for (Veiculo veiculo : alugados) {
-                System.out.printf("Carro: %s/%s - Categoria: %s - Data de Locação: %s", veiculo.getMarca(),
+                System.out.printf("Carro: %s/%s - Categoria: %s - Data de Locação: %s\n", veiculo.getMarca(),
                         veiculo.getModelo(),
                         veiculo.nomeDaCategoria(),
                         veiculo.getDataDeLocacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -61,14 +61,15 @@ public abstract class Cliente {
     }
 
     // Métodos que realiza a devolução do carro
-    public void devolverCarro(Veiculo veiculo, LocalDate data) {
+    public void devolverCarro(Veiculo veiculo, LocalDate data, int kms) {
         if (this.alugados.contains(veiculo)) {
-            veiculo.devolver(data);
+            veiculo.devolver(data, kms);
             this.alugados.remove(veiculo);
             System.out.println("Veículo devolvido com sucesso!");
         } else {
             System.out.println("Esse cliente não possui o veículo informado alugado.");
         }
+
     }
 
     public void alugarCarro(Veiculo carro, LocalDate data) {

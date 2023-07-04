@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -57,53 +58,107 @@ public class Veiculo {
         return kmRodado;
     }
 
-    // Método para calcular o preço por diaria
-    public static double precoPorCategoriaDiaria(int categoria) {
-        switch (categoria) {
+    // Método que calcula e exibe a Nota Fiscal da locação do carro
+    public void gerarNotaFiscal(LocalDate dataDeDevolucao, int kms) {
+        Scanner sc = new Scanner(System.in);
+        final Double kmExcedente = 1.20;
+        Double total = 0.0;
+        long NdeDiarias = ChronoUnit.DAYS.between(dataDeLocacao, dataDeDevolucao);
+        int kmsRodados = kms - this.kmRodado;
+        if (NdeDiarias == 0) {
+            NdeDiarias = 1;
+        }
+        System.out.println("\n-----------NOTA FISCAL-----------");
+        if (NdeDiarias >= 30) {
+            int NdeMensal = (int) NdeDiarias / 30;
+            int NdeDiariasExcedentes = (int) NdeDiarias % 30;
+            System.out.printf("Numero de Mensais: %d x R$%.2f (%s) = R$%.2f\n", NdeMensal, precoPorCategoriaMensal(),
+                    nomeDaCategoria(),
+                    NdeMensal * precoPorCategoriaMensal());
+            if (NdeDiariasExcedentes > 0) {
+                System.out.printf("Diarias Excedidas: %d x R$%.2f (%s) = R$%.2f\n", NdeDiariasExcedentes,
+                        precoPorCategoriaDiaria(),
+                        nomeDaCategoria(),
+                        NdeDiariasExcedentes * precoPorCategoriaDiaria());
 
-            case 1: // Grupo B - Econômico
+                total += NdeDiariasExcedentes * precoPorCategoriaDiaria();
+            }
+
+            total += NdeMensal * precoPorCategoriaMensal();
+
+            if (kmsRodados > 5000) {
+                System.out.printf("Quilômetros Excedidos: %d x R$%.2f = R$%.2f\n", kmsRodados - 5000, kmExcedente,
+                        (kmsRodados - 5000) * kmExcedente);
+                total += (kmsRodados - 5000) * kmExcedente;
+
+            }
+
+        } else {
+            System.out.printf("Numero de diarias: %d x R$%.2f (%s) = R$%.2f\n", NdeDiarias, precoPorCategoriaDiaria(),
+                    nomeDaCategoria(),
+                    NdeDiarias * precoPorCategoriaDiaria());
+            total += NdeDiarias * precoPorCategoriaDiaria();
+            if (NdeDiarias == 1) {
+                if (kmsRodados > 100) {
+                    System.out.printf("Quilômetros Excedidos: %d x R$%.2f = R$%.2f\n", kmsRodados - 100, kmExcedente,
+                            (kmsRodados - 100) * kmExcedente);
+                    total += (kmsRodados - 100) * kmExcedente;
+
+                }
+
+            }
+            if (NdeDiarias == 2) {
+                if (kmsRodados > 200) {
+                    System.out.printf("Quilômetros Excedidos: %d x R$%.2f = R$%.2f\n", kmsRodados - 200, kmExcedente,
+                            (kmsRodados - 200) * kmExcedente);
+                    total += (kmsRodados - 200) * kmExcedente;
+
+                }
+
+            }
+
+        }
+        System.out.printf("\nTOTAL: R$%.2f", total);
+
+        sc.nextLine();
+        sc.nextLine();
+
+    }
+
+    // Método que retorna o preço da diária da categoria do carro
+    public double precoPorCategoriaDiaria() {
+        switch (this.categoria) {
+
+            case 1: // Grupo 1 - Econômico
                 return 157.50;
-            case 2: // Grupo C - Intermediários
+            case 2: // Grupo 2 - Intermediários
                 return 172.20;
-            case 3: // Grupo E - Utilitário
+            case 3: // Grupo 3 - Utilitário
                 return 225.75;
-            case 4: // Grupo H - Executivo
+            case 4: // Grupo 4 - Executivo
                 return 281.40;
             default:
                 return 0;
         }
     }
 
-    // Método para calcular o preço para mensalista
-    public static double precoPorCategoriaMensal(int categoria) {
-        switch (categoria) {
-            case 1: // Grupo B - Econômico
+    // Método que retorna o preço mensal da categoria do carro
+    public double precoPorCategoriaMensal() {
+        switch (this.categoria) {
+            case 1: // Grupo 1 - Econômico
                 return 2500.00;
-            case 2: // Grupo C - Intermediários
+            case 2: // Grupo 2 - Intermediários
                 return 2700.00;
-            case 3: // Grupo E - Utilitário
+            case 3: // Grupo 3 - Utilitário
                 return 3200.00;
-            case 4: // Grupo H - Executivo
+            case 4: // Grupo 4 - Executivo
                 return 4000.00;
             default:
                 return 0;
         }
     }
 
-    // Método que realiza o aluguel do carro
-    public void alugar(LocalDate dataDeHoje, Cliente cliente) {
-        dataDeLocacao = dataDeHoje;
-        clienteEmPosse = cliente;
-        statusLocacao = false;
-
-    }
-
-    // Método que realiza a devolução do carro
-    public void devolver(LocalDate dataDevolucao) {
-        this.statusLocacao = true;
-        clienteEmPosse = null;
-    }
-
+    // Metodo que retorna o nome da categoria do carro
     public String nomeDaCategoria() {
 
         switch (this.getCategoria()) {
@@ -120,51 +175,23 @@ public class Veiculo {
 
     }
 
-    // Calcula o preço do aluguel. A data vai ser recebida como STRING
-    public static double calcularPrecoAluguelDiaria(String dataInicioStr, String dataFimStr, double KMInicial,
-            double KMFinal, int categoria) {
+    // Método que realiza o aluguel do carro
+    public void alugar(LocalDate dataDeHoje, Cliente cliente) {
+        dataDeLocacao = dataDeHoje;
+        clienteEmPosse = cliente;
+        statusLocacao = false;
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Converte a data para o formato dd/MM/yyyy
-
-        try {
-            Date dataInicio = dateFormat.parse(dataInicioStr); // Converte a data para o formato Date
-            Date dataFim = dateFormat.parse(dataFimStr); // Converte a data para o formato Date
-            double taxaDiaria = precoPorCategoriaDiaria(categoria); // Pega o preço da categoria por DIARIA!
-            long diferencaEmMilissegundos = dataFim.getTime() - dataInicio.getTime();
-            long diferencaEmDias = diferencaEmMilissegundos / (24 * 60 * 60 * 1000); // Converte milissegundos em dias.
-
-            double taxaKMExcedido = 1.20; // Taxa de KM excedido.
-            double totalCustoKMExcedido = 0; // Variável para armazenar o total de KM excedido.
-            if (diferencaEmDias < 3) {
-                if (diferencaEmDias == 2 && KMFinal - KMInicial > 200) {
-                    totalCustoKMExcedido = (KMFinal - KMInicial) * taxaKMExcedido;
-                    System.out.println("Qtd de dias locados: " + diferencaEmDias + " dias");
-                    System.out.println("Total da diária: R$" + taxaDiaria * diferencaEmDias);
-                    System.out.println(
-                            "Total de KM excedidos: " + (KMFinal - KMInicial) + "KM" + "\nValor total de KM excente: R$"
-                                    + totalCustoKMExcedido);
-                } else if (diferencaEmDias == 1 && KMFinal - KMInicial > 100) {
-                    totalCustoKMExcedido = (KMFinal - KMInicial) * taxaKMExcedido;
-                    System.out.println("Qtd de dias locado: " + diferencaEmDias + " dia");
-                    System.out.println("Total da diária: R$" + taxaDiaria * diferencaEmDias);
-                    System.out.println(
-                            "Total de KM excedidos: " + (KMFinal - KMInicial) + "KM" + "\nValor total de KM excente: R$"
-                                    + totalCustoKMExcedido);
-                }
-                return (taxaDiaria * diferencaEmDias) + totalCustoKMExcedido; // Retorna o valor da taxa de aluguel +
-                                                                              // taxa de km excedido
-            } else {
-                System.out.println("Quilometragem livre a partir da 3ª diária.");
-                totalCustoKMExcedido = 0;
-                System.out.println("Qtd de dias locados: " + diferencaEmDias + " dias");
-            }
-            return (taxaDiaria * diferencaEmDias) + totalCustoKMExcedido; // Retorna o valor da taxa de aluguel.
-        } catch (ParseException e) {
-            System.out.println("Certifique-se de que as datas estão no formato dd/MM/yyyy"); // Erro por formatação
-            return 0.0;
-        }
     }
 
+    // Método que realiza a devolução do carro
+    public void devolver(LocalDate dataDevolucao, int kms) {
+        this.statusLocacao = true;
+        clienteEmPosse = null;
+        this.gerarNotaFiscal(dataDevolucao, kms);
+        this.kmRodado = kms;
+    }
+
+    // Método que cadastra um novo veiculo
     public static Veiculo cadastrarVeiculo() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Digite a Marca do Veiculo: ");

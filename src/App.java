@@ -142,7 +142,8 @@ public class App {
 
         while (true) {
             limparTela();
-            System.out.printf("-----%s-----", cliente.getNome());
+            System.out.printf("------------------\n%s\n------------------",
+                    cliente);
 
             System.out.print("\n\n1 - Alugar Carro\n2 - Devolver Carro\n3 - Consultar Débito\n\n4 - Sair\n\nEscolha: ");
             int escolha = sc.nextInt();
@@ -163,7 +164,7 @@ public class App {
                     }
                     System.out.print("Digite o ID do veículo que deseja locar: ");
                     int IDVeiculoLocacao = sc.nextInt();
-                    if (IDVeiculoLocacao <= indice) {
+                    if (IDVeiculoLocacao < carrosexibicao.size()) {
                         Veiculo veiculoLocado = carrosexibicao.get(IDVeiculoLocacao);
 
                         cliente.alugarCarro(veiculoLocado, data);
@@ -183,17 +184,42 @@ public class App {
 
                         int indice2 = 0;
                         for (Veiculo veiculo : alugados) {
-                            System.out.printf("ID: %d\nCarro: %s/%s - Categoria: %s - Data de Locação: %s", indice2,
+                            System.out.printf("ID: %d\nCarro: %s/%s - Categoria: %s - Data de Locação: %s\n", indice2++,
                                     veiculo.getMarca(),
                                     veiculo.getModelo(),
                                     veiculo.nomeDaCategoria(),
                                     veiculo.getDataDeLocacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
                         }
-                        System.out.print("\nDigite o ID do veículo que deseja devolver: ");
+                        System.out.print("\n\nDigite o ID do veículo que deseja devolver: ");
                         int IDVeiculoDevolucao = sc.nextInt();
-                        Veiculo veiculoDevolvido = alugados.get(IDVeiculoDevolucao);
-                        cliente.devolverCarro(veiculoDevolvido, data);
+                        if (IDVeiculoDevolucao < alugados.size()) {
+                            System.out.print("Digite a quilometragem atual do veiculo: ");
+                            int kmAtual = sc.nextInt();
+                            if (kmAtual < alugados.get(IDVeiculoDevolucao).getkmRodado()) {
+                                System.out.println("Quilometragem informada invalida");
+                                sc.nextLine();
+                                sc.nextLine();
+                                continue;
+                            } else {
+
+                                Veiculo veiculoDevolvido = alugados.get(IDVeiculoDevolucao);
+                                cliente.devolverCarro(veiculoDevolvido, data, kmAtual);
+                            }
+
+                        } else {
+                            System.out.println("ID digitado invalido");
+                            sc.nextLine();
+                            sc.nextLine();
+                            continue;
+
+                        }
+
+                    } else {
+                        System.out.println("Cliente não possui carros locados");
+                        sc.nextLine();
+                        sc.nextLine();
+                        continue;
 
                     }
                     sc.nextLine();
@@ -208,11 +234,13 @@ public class App {
         }
     }
 
+    // Função inicia o programa com dados cadastrados
     public static void cadastroPadrao(ArrayList cliente, ArrayList veiculos) {
 
         cliente.add(new PessoaFisica("Michelle", "michelle@senai.com.br", "(71) 9988-7766", "123"));
         cliente.add(new PessoaFisica("Washington", "washington@senai.com.br", "(71) 3132-7766", "052"));
-        cliente.add(new PessoaJuridica("Embasa", "embasa@agua.com.br", "(71) 3132-1212", "171"));
+        cliente.add(new PessoaJuridica("Embasa", "embasa@agua.com.br", "(71) 3132-1212", "180"));
+        cliente.add(new PessoaJuridica("Senai", "embasa@agua.com.br", "(71) 3132-1212", "171"));
         veiculos.add(new Veiculo("Tesla", "Model T", 2, 2000));
         veiculos.add(new Veiculo("Ford", "Fiesta", 1, 45781));
     }
