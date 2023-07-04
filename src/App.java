@@ -38,17 +38,11 @@ public class App {
             sc.nextLine();
             switch (escolha) {
                 case 1:
-
                     System.out.print("Qual o CPF do cliente buscado: ");
-
                     String cpf = sc.nextLine();
 
                     for (Cliente cliente : clientes) {
-                        // System.out.println(cliente.getCPF());
-
                         if (cliente.getCPF().equals(cpf)) {
-                            System.out.println("Achou!!");
-
                             clienteAtual = cliente;
                         }
                     }
@@ -56,7 +50,6 @@ public class App {
                         menuDoCliente(clienteAtual, veiculos, dataDeHoje);
                     }
                     clienteAtual = null;
-
                     break;
                 case 2:
                     veiculos.add(Veiculo.cadastrarVeiculo());
@@ -68,10 +61,8 @@ public class App {
                     if (escolha2 == 1) {
                         Cliente cadastrado = PessoaFisica.cadastrar(clientes);
                         if (cadastrado != null) {
-
                             clientes.add(cadastrado);
                         }
-
                     } else if (escolha2 == 2) {
                         System.out.println("FALTA FAZER");
 
@@ -107,12 +98,7 @@ public class App {
                 default:
                     continue;
             }
-
         }
-
-        // veiculos.add(Veiculo.cadastrarVeiculo());
-        // clientes.add(PessoaFisica.cadastrar());
-
     }
 
     public static void limparTela() {
@@ -152,22 +138,28 @@ public class App {
 
                     cliente.alugarCarro(veiculoLocado, data);
 
-                    // veiculoLocado.setStatusLocacao(false);
-                    // veiculoLocado.setDataDeLocacao(LocalDate.now());
-                    // System.out.println(cliente.getNome() + " o carro Locado com sucesso na data:
-                    // "
-                    // + veiculoLocado.getDataDeLocacao());
-                    // sc.nextLine();
-                    // sc.nextLine();
                     break;
                 case 2:
-                    for (Veiculo carro : veiculos) {
-                        if (carro.getStatusLocacao() == false) {
-                            int posicaoNoArray = veiculos.indexOf(carro);
-                            System.out.println("ID: " + posicaoNoArray + "\n" + carro);
-                            System.out.println(
-                                    "Foi locado no dia: " + carro.getDataDeLocacao() + " por " + cliente.getNome());
+                    if (cliente.getAlugados().size() > 0) {
+                        System.out.println("Veículos alugados pelo cliente:");
+
+                        for (Object obj : cliente.getAlugados()) {
+                            if (obj instanceof Veiculo) {
+                                Veiculo carro = (Veiculo) obj;
+                                int posicaoNoArray = cliente.getAlugados().indexOf(carro);
+                                System.out.println("ID: " + posicaoNoArray + "\n" + carro);
+                            }
                         }
+
+                        System.out.println("Digite o ID do veículo que deseja devolver: ");
+                        int IDVeiculoDevolucao = sc.nextInt();
+                        Veiculo veiculoDevolvido = (Veiculo) cliente.getAlugados().get(IDVeiculoDevolucao);
+
+                        cliente.devolverCarro(veiculoDevolvido, data);
+                        break;
+                    } else {
+                        System.out.println("Não existem veículos alugados pelo cliente.");
+                        sc.nextLine();
                     }
                     sc.nextLine();
                     sc.nextLine();
@@ -179,7 +171,5 @@ public class App {
             }
             break;
         }
-
     }
-
 }

@@ -122,13 +122,10 @@ public class Veiculo {
 
     }
 
-    public void devolver() {
-        if (statusLocacao == false) {
-            // System.out.println("Veículo devolvido com sucesso!");
-            this.statusLocacao = true;
-        } else {
-            // System.out.println("O veículo já se encontra disponível.");
-        }
+    public void devolver(LocalDate dataDevolucao, Cliente cliente) {
+        this.statusLocacao = true;
+        this.dataDeDevolucao = dataDevolucao;
+        clienteEmPosse = null;
     }
 
     // Calcula o preço do aluguel. A data vai ser recebida como STRING
@@ -191,9 +188,15 @@ public class Veiculo {
     }
 
     public String toString() {
-        return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nDisponibilidade: %s\n\n",
-                this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado,
-                this.statusLocacao == true ? "Disponível" : String.format(clienteEmPosse.getNome()));
+        if (this.statusLocacao == false) {
+            return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nLocado por: %s\n\n",
+                    this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado,
+                    String.format(clienteEmPosse.getNome()));
+        } else {
+            return String.format("Marca: %s\nModelo: %s\nCategoria: %s\nQuilometragem: %dkm\nDisponibilidade: %s\n\n",
+                    this.marca, this.modelo, this.nomeDaCategoria(), this.kmRodado,
+                    this.statusLocacao == true ? "Disponível" : "Alugado");
+        }
     }
 
 }

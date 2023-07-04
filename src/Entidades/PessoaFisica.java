@@ -32,26 +32,38 @@ public class PessoaFisica extends Cliente {
                 sc.nextLine();
 
                 return null;
-
             }
-
         }
         return new PessoaFisica(nome, email, telefone, cpf);
-
     }
 
     public void alugarCarro(Veiculo carro, LocalDate data) {
+        Scanner sc = new Scanner(System.in);
 
         if (this.getAlugados().size() == 0) {
             carro.alugar(data, this);
             getAlugados().add(carro);
-
         } else {
             System.out.println("Não é possivel realizar a locação pois ja existe um carro locado");
-
+            sc.nextLine();
         }
-
     }
+
+    public void devolverCarro(Veiculo carro, LocalDate data) {
+        Scanner sc = new Scanner(System.in);
+
+        if (this.getAlugados().size() == 0) {
+            System.out.println("Não é possivel devolver o carro pois não existe nenhum carro locado");
+            sc.nextLine();
+        } else {
+            //errado
+            carro.devolver(data, this);
+            int IdparaRemocao = getAlugados().indexOf(carro);
+            getAlugados().remove(IdparaRemocao);
+
+            sc.nextLine();
+        }
+    } 
 
     public String toString() {
         return String.format("Nome: %s\nE-mail: %s\nTelefone: %s\nCPF: %s\n", this.getNome(),

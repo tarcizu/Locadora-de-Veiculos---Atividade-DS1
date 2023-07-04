@@ -32,15 +32,13 @@ public abstract class Cliente {
         return this.telefone;
     }
 
-    public void devolverCarro() {
-        if (this.alugados.size() == 0) {
-            System.out.println("Esse cliente não possui carros alugados");
-
-        } else if (this.alugados.size() == 1) {
-            this.alugados.get(0).devolver();
-            this.alugados.remove(0);
-            System.out.println("Veiculo");
-
+    public void devolverCarro(Veiculo veiculo, LocalDate data) {
+        if (this.alugados.contains(veiculo)) {
+            veiculo.devolver(data);
+            this.alugados.remove(veiculo);
+            System.out.println("Veículo devolvido com sucesso!");
+        } else {
+            System.out.println("Esse cliente não possui o veículo informado alugado.");
         }
     }
 
