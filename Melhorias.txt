@@ -1,0 +1,29 @@
+============ BUGS =============
+LOCAR VEÍCULO 
+- Está cadastrando veículo sem nome;
+- Está cadastrando cliente sem nome;
+- Está aceitando "-1";
+- Pressione qualquer tecla para continuar => Pressione ENTER para continuar
+- Quando um veículo é locado e sai do array, quando outro cliente vai locar o array troca a ordem do ID
+- Ao pesquisar por cpf/cnpj vazio ele associa ao ultimo cliente;
+- Está aceitando letra ao invés de número;
+
+
+============ MELHORIAS =============
+- Ao listar clientes informar quantos dias já possui de locação;
+- Deletar veículo;
+- Deletar cliente;
+- Editar cadastro de Cliente;
+- Editar cadastro de veículo;
+- Quando for locar um veículo haver o filtro por categoria;
+- Listar veículos por categoria;
+- Listar todos iniciando pela categoria mais baixa;
+- Filtrar veículos por nome;
+- Histórico de locação;
+- Inserir um campo para outros custos como: tx de limpeza, completar tanque, etc;
+- Inserir campo como: tx de seguro, etc;
+- Ao devolver o veícuo, informar o km inicial para facilitar o calculo da devolução;
+
+
+
+

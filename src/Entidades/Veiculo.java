@@ -200,7 +200,7 @@ public class Veiculo {
                 break;
             }
             System.out.println("Opção digitada invalida");
-
+            sc.nextLine();
         }
 
         System.out.print("Digite a Quilometragem do Veiculo: ");

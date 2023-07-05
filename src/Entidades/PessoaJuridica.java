@@ -29,6 +29,11 @@ public class PessoaJuridica extends Cliente {
         String telefone = sc.nextLine();
         System.out.print("Digite o cnpj do cliente: ");
         String cnpj = sc.nextLine();
+        if (nome.isEmpty() || email.isEmpty() || telefone.isEmpty() || cnpj.isEmpty()) {
+            System.out.println("Não foi possível cadastrar! Preencha todos os campos");
+            sc.nextLine();
+            return null;
+        }
         for (Cliente cliente : clientes) {
             if (cliente.getCNPJ().equals(cnpj)) {
                 System.out.println("Não foi possível cadastrar! Já existe um cliente com esse CNPJ");

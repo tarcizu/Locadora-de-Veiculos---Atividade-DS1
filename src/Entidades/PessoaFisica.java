@@ -29,11 +29,15 @@ public class PessoaFisica extends Cliente {
         String telefone = sc.nextLine();
         System.out.print("Digite o CPF do cliente: ");
         String cpf = sc.nextLine();
+        if (nome.isEmpty() || email.isEmpty() || telefone.isEmpty() || cpf.isEmpty()) {
+            System.out.println("Não foi possível cadastrar! Preencha todos os campos");
+            sc.nextLine();
+            return null;
+        }
         for (Cliente cliente : clientes) {
             if (cliente.getCPF().equals(cpf)) {
                 System.out.println("Não foi possível cadastrar! Já existe um cliente com esse CPF");
                 sc.nextLine();
-
                 return null;
             }
         }
