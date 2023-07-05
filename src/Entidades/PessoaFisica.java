@@ -52,12 +52,12 @@ public class PessoaFisica extends Cliente {
             carro.alugar(data, this);
             getAlugados().add(carro);
             System.out.println("\nVeículos locado com sucesso!\n");
-            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+            System.out.print("APERTE A TECLA ENTER PARA CONTINUAR...");
             sc.nextLine();
 
         } else {
             System.out.println("\nNão é possível realizar a locação pois já existe um veículo locado\n");
-            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+            System.out.print("APERTE A TECLA ENTER PARA CONTINUAR...");
             sc.nextLine();
         }
     }
