@@ -27,7 +27,7 @@ public class PessoaFisica extends Cliente {
         String email = sc.nextLine();
         System.out.print("Digite o telefone do cliente: ");
         String telefone = sc.nextLine();
-        System.out.print("Digite o cpf do cliente: ");
+        System.out.print("Digite o CPF do cliente: ");
         String cpf = sc.nextLine();
         for (Cliente cliente : clientes) {
             if (cliente.getCPF().equals(cpf)) {
@@ -47,8 +47,13 @@ public class PessoaFisica extends Cliente {
         if (this.getAlugados().size() == 0) {
             carro.alugar(data, this);
             getAlugados().add(carro);
+            System.out.println("\nVeículos locado com sucesso!\n");
+            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+            sc.nextLine();
+
         } else {
-            System.out.println("Não é possível realizar a locação pois já existe um carro locado");
+            System.out.println("\nNão é possível realizar a locação pois já existe um veículo locado\n");
+            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
             sc.nextLine();
         }
     }

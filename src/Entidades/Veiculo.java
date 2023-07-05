@@ -80,7 +80,7 @@ public class Veiculo {
             total += NdeMensal * precoPorCategoriaMensal();
 
             if (kmsRodados > 5000) {
-                System.out.printf("Quilômetros Excedidos: %d x R$%.2f = R$%.2f\n", kmsRodados - 5000, kmExcedente,
+                System.out.printf("Quilômetros Excedidos: %dkm x R$%.2f = R$%.2f\n", kmsRodados - 5000, kmExcedente,
                         (kmsRodados - 5000) * kmExcedente);
                 total += (kmsRodados - 5000) * kmExcedente;
 
@@ -93,7 +93,7 @@ public class Veiculo {
             total += NdeDiarias * precoPorCategoriaDiaria();
             if (NdeDiarias == 1) {
                 if (kmsRodados > 100) {
-                    System.out.printf("Quilômetros Excedidos: %d x R$%.2f = R$%.2f\n", kmsRodados - 100, kmExcedente,
+                    System.out.printf("Quilômetros Excedidos: %dkm x R$%.2f = R$%.2f\n", kmsRodados - 100, kmExcedente,
                             (kmsRodados - 100) * kmExcedente);
                     total += (kmsRodados - 100) * kmExcedente;
 
@@ -102,7 +102,7 @@ public class Veiculo {
             }
             if (NdeDiarias == 2) {
                 if (kmsRodados > 200) {
-                    System.out.printf("Quilômetros Excedidos: %d x R$%.2f = R$%.2f\n", kmsRodados - 200, kmExcedente,
+                    System.out.printf("Quilômetros Excedidos: %dkm x R$%.2f = R$%.2f\n", kmsRodados - 200, kmExcedente,
                             (kmsRodados - 200) * kmExcedente);
                     total += (kmsRodados - 200) * kmExcedente;
 
@@ -111,9 +111,9 @@ public class Veiculo {
             }
 
         }
-        System.out.printf("\nTOTAL: R$%.2f", total);
-
-        sc.nextLine();
+        System.out.printf("\nTOTAL: R$%.2f\n", total);
+        System.out.println("\n--------------FIM----------------\n\n");
+        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
         sc.nextLine();
 
     }
@@ -191,9 +191,19 @@ public class Veiculo {
         String marca = sc.nextLine();
         System.out.print("Digite o Modelo do Veiculo: ");
         String modelo = sc.nextLine();
-        System.out.print("Digite a categoria do Veiculo: \n1 - Básico\n2- Intermediário\n\nEscolha: ");
-        int categoria = sc.nextInt();
-        System.out.print("Digite a Kilometragem do Veiculo: ");
+        System.out.print(
+                "Digite a categoria do Veiculo: \n1 - Econômico\n2 - Intermediário\n3 - Executivo\n4 - Utilitário\n\nEscolha: ");
+        int categoria = 0;
+        while (true) {
+            categoria = sc.nextInt();
+            if (categoria > 0 && categoria <= 4) {
+                break;
+            }
+            System.out.println("Opção digitada invalida");
+
+        }
+
+        System.out.print("Digite a Quilometragem do Veiculo: ");
         int km = sc.nextInt();
         return new Veiculo(marca, modelo, categoria, km);
 

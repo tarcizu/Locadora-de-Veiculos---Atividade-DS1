@@ -40,9 +40,13 @@ public class PessoaJuridica extends Cliente {
     }
 
     public void alugarCarro(Veiculo carro, LocalDate data) {
+        Scanner sc = new Scanner(System.in);
 
         carro.alugar(data, this);
         getAlugados().add(carro);
+        System.out.println("\nVeículos locado com sucesso!\n");
+        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+        sc.nextLine();
 
     }
 

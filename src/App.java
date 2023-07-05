@@ -33,7 +33,7 @@ public class App {
         while (true) {
             limparTela();
             System.out.printf(
-                    "JavaCar\nData de Hoje: %s\n\n1 - Realizar Locação/Devolução\n\n2 - Cadastrar Veiculo\n3 - Cadastrar Cliente\n\n4 - Listar Frota\n5 - Listar Clientes\n\n6 - Avançar Data\n\nEscolha: ",
+                    "JavaCar\nData de Hoje: %s\n\n1 - Realizar Locação/Devolução\n\n2 - Cadastrar Veiculo\n3 - Cadastrar Cliente\n\n4 - Listar Veículos\n5 - Listar Clientes\n\n6 - Avançar Data\n\nEscolha: ",
                     dataDeHoje.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             int escolha = sc.nextInt();
             sc.nextLine();
@@ -48,24 +48,19 @@ public class App {
 
                         for (Cliente cliente : clientes) {
                             if (cliente.getCPF().equals(cpf) && cpf != "") {
-                                System.out.println("Entrou aqui");
-                                System.out.println(cpf);
-                                sc.nextLine();
-                                sc.nextLine();
-
                                 clienteAtual = cliente;
                             }
                         }
                         if (clienteAtual != null) {
                             menuDoCliente(clienteAtual, veiculos, dataDeHoje);
                         } else {
-                            System.out.println("CPF não encontrado!");
+                            System.out.println("\nCPF não encontrado!\n");
+                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
                             sc.nextLine();
 
                         }
 
-                    }
-                    if (escolha3 == 2) {
+                    } else if (escolha3 == 2) {
                         System.out.print("Qual o CNPJ do cliente buscado: ");
                         sc.nextLine();
                         String cnpj = sc.nextLine();
@@ -78,10 +73,17 @@ public class App {
                         if (clienteAtual != null) {
                             menuDoCliente(clienteAtual, veiculos, dataDeHoje);
                         } else {
-                            System.out.println("CNPJ não encontrado!");
+                            System.out.println("\nCNPJ não encontrado!\n");
+                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
                             sc.nextLine();
 
                         }
+
+                    } else {
+                        System.out.println("\nOpção digitada invalida\n");
+                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        sc.nextLine();
+                        sc.nextLine();
 
                     }
                     clienteAtual = null;
@@ -107,24 +109,40 @@ public class App {
                     }
                     break;
                 case 4:
-                    for (Veiculo carro : veiculos) {
-                        int posicao = veiculos.indexOf(carro);
-                        System.out.println("ID: " + posicao + "\n" + carro);
-                    }
-                    sc.nextLine();
-                    sc.nextLine();
+                    if (veiculos.size() != 0) {
 
+                        System.out.println("\nLISTA DE VEÍCULOS\n");
+                        for (Veiculo carro : veiculos) {
+                            int posicao = veiculos.indexOf(carro);
+                            System.out.println("ID: " + posicao + "\n" + carro);
+                        }
+                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        sc.nextLine();
+                    } else {
+                        System.out.println("\nNão existe veículos cadastrados\n");
+                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        sc.nextLine();
+                    }
                     break;
                 case 5:
-                    System.out.println("LISTA DE CLIENTES\n");
+                    if (clientes.size() != 0) {
+                        System.out.println("\nLISTA DE CLIENTES\n");
 
-                    for (Cliente cliente : clientes) {
-                        System.out.print(cliente);
-                        cliente.listarAlugados();
-                        System.out.println("\n\n");
+                        for (Cliente cliente : clientes) {
+                            System.out.print(cliente);
+                            cliente.listarAlugados();
+                            System.out.println("\n");
+
+                        }
+                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        sc.nextLine();
+
+                    } else {
+                        System.out.println("\nNão existe clientes cadastrados\n");
+                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        sc.nextLine();
 
                     }
-                    sc.nextLine();
                     break;
                 case 6:
                     System.out.print("Quantos dias quer avançar? ");
@@ -147,7 +165,7 @@ public class App {
 
         while (true) {
             limparTela();
-            System.out.printf("------------------\n%s\n------------------",
+            System.out.printf("------------------\n%s------------------",
                     cliente);
 
             System.out.print("\n\n1 - Alugar Carro\n2 - Devolver Carro\n3 - Consultar Débito\n\n4 - Sair\n\nEscolha: ");
@@ -162,32 +180,45 @@ public class App {
                         }
                     }
                     int indice = 0;
-                    for (Veiculo carro : carrosexibicao) {
-                        System.out.printf("ID: %d\n", indice++);
-                        System.out.println(carro);
+                    if (carrosexibicao.size() != 0) {
 
-                    }
-                    System.out.print("Digite o ID do veículo que deseja locar: ");
-                    int IDVeiculoLocacao = sc.nextInt();
-                    if (IDVeiculoLocacao < carrosexibicao.size()) {
-                        Veiculo veiculoLocado = carrosexibicao.get(IDVeiculoLocacao);
+                        System.out.println("VEÍCULOS DISPONÍVEIS\n");
 
-                        cliente.alugarCarro(veiculoLocado, data);
+                        for (Veiculo carro : carrosexibicao) {
+                            System.out.printf("ID: %d\n", indice++);
+                            System.out.println(carro);
 
+                        }
+                        System.out.print("Digite o ID do veículo que deseja locar: ");
+                        int IDVeiculoLocacao = sc.nextInt();
+                        if (IDVeiculoLocacao < carrosexibicao.size()) {
+                            Veiculo veiculoLocado = carrosexibicao.get(IDVeiculoLocacao);
+
+                            cliente.alugarCarro(veiculoLocado, data);
+
+                        } else {
+                            System.out.println("\nID digitado invalido\n");
+                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                            sc.nextLine();
+                            sc.nextLine();
+                            continue;
+
+                        }
                     } else {
-                        System.out.println("ID digitado invalido");
-                        sc.nextLine();
-                        sc.nextLine();
-                        continue;
+                        System.out.println("Não existe Veículos Disponíveis\n");
 
+                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        sc.nextLine();
+                        sc.nextLine();
                     }
 
-                    break;
+                    continue;
                 case 2:
                     ArrayList<Veiculo> alugados = cliente.getAlugados();
                     if (alugados.size() != 0) {
 
                         int indice2 = 0;
+                        System.out.println("VEÍCULOS LOCADOS\n");
                         for (Veiculo veiculo : alugados) {
                             System.out.printf("ID: %d\nCarro: %s/%s - Categoria: %s - Data de Locação: %s\n", indice2++,
                                     veiculo.getMarca(),
@@ -202,7 +233,8 @@ public class App {
                             System.out.print("Digite a quilometragem atual do veiculo: ");
                             int kmAtual = sc.nextInt();
                             if (kmAtual < alugados.get(IDVeiculoDevolucao).getkmRodado()) {
-                                System.out.println("Quilometragem informada invalida");
+                                System.out.println("\nQuilometragem informada invalida\n");
+                                System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
                                 sc.nextLine();
                                 sc.nextLine();
                                 continue;
@@ -213,7 +245,8 @@ public class App {
                             }
 
                         } else {
-                            System.out.println("ID digitado invalido");
+                            System.out.println("\nID digitado invalido\n");
+                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
                             sc.nextLine();
                             sc.nextLine();
                             continue;
@@ -221,20 +254,22 @@ public class App {
                         }
 
                     } else {
-                        System.out.println("Cliente não possui carros locados");
+                        System.out.println("Cliente não possui Veículos locados\n");
+                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
                         sc.nextLine();
                         sc.nextLine();
                         continue;
 
                     }
                     sc.nextLine();
-                    sc.nextLine();
-                    break;
+                    continue;
                 case 3:
                     ArrayList<Veiculo> alugados2 = cliente.getAlugados();
                     if (alugados2.size() != 0) {
 
                         int indice3 = 0;
+                        System.out.println("VEÍCULOS LOCADOS\n");
+
                         for (Veiculo veiculo : alugados2) {
                             System.out.printf("ID: %d\nCarro: %s/%s - Categoria: %s - Data de Locação: %s\n", indice3++,
                                     veiculo.getMarca(),
@@ -243,13 +278,14 @@ public class App {
                                     veiculo.getDataDeLocacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
                         }
-                        System.out.print("\n\nDigite o ID do veículo que deseja devolver: ");
+                        System.out.print("\n\nDigite o ID do veículo que deseja consultar: ");
                         int IDVeiculoDevolucao = sc.nextInt();
                         if (IDVeiculoDevolucao < alugados2.size()) {
                             System.out.print("Digite a quilometragem atual do veiculo: ");
                             int kmAtual = sc.nextInt();
                             if (kmAtual < alugados2.get(IDVeiculoDevolucao).getkmRodado()) {
-                                System.out.println("Quilometragem informada invalida");
+                                System.out.println("\nQuilometragem informada invalida\n");
+                                System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
                                 sc.nextLine();
                                 sc.nextLine();
                                 continue;
@@ -259,7 +295,8 @@ public class App {
                             }
 
                         } else {
-                            System.out.println("ID digitado invalido");
+                            System.out.println("\nID digitado invalido\n");
+                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
                             sc.nextLine();
                             sc.nextLine();
                             continue;
@@ -267,15 +304,15 @@ public class App {
                         }
 
                     } else {
-                        System.out.println("Cliente não possui carros locados");
+                        System.out.println("Cliente não possui Veículos locados\n");
+                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
                         sc.nextLine();
                         sc.nextLine();
                         continue;
 
                     }
                     sc.nextLine();
-                    sc.nextLine();
-                    break;
+                    continue;
                 case 4:
                     break;
                 default:
@@ -288,11 +325,20 @@ public class App {
     // Função inicia o programa com dados cadastrados
     public static void cadastroPadrao(ArrayList cliente, ArrayList veiculos) {
 
-        cliente.add(new PessoaFisica("Michelle", "michelle@senai.com.br", "(71) 9988-7766", "123"));
-        cliente.add(new PessoaFisica("Washington", "washington@senai.com.br", "(71) 3132-7766", "052"));
-        cliente.add(new PessoaJuridica("Embasa", "embasa@agua.com.br", "(71) 3132-1212", "180"));
-        cliente.add(new PessoaJuridica("Senai", "embasa@agua.com.br", "(71) 3132-1212", "171"));
-        veiculos.add(new Veiculo("Tesla", "Model T", 2, 2000));
-        veiculos.add(new Veiculo("Ford", "Fiesta", 1, 45781));
+        // Clientes Pessoa Física
+        cliente.add(new PessoaFisica("Caio", "caio@ba.estudante.senai.br", "(71) 9988-7123", "123"));
+        cliente.add(new PessoaFisica("Iolanda", "iolanda@ba.estudante.senai.br", "(71) 9988-7456", "456"));
+        cliente.add(new PessoaFisica("Tarcizo", "tarcizo@ba.estudante.senai.br", "(71) 9988-7789", "789"));
+        cliente.add(new PessoaFisica("Washington", "washington@ba.estudante.senai.br", "(71) 9988-7101", "052"));
+        // Clientes Pessoa Jurídica
+        cliente.add(new PessoaJuridica("Embasa", "agua@embasa.com.br", "(71) 3132-1212", "123"));
+        cliente.add(new PessoaJuridica("Senai", "coordenacao@senai.com.br", "(71) 3534-8090", "456"));
+        // Veículos
+        veiculos.add(new Veiculo("Chevrolet", "Onix", 1, 3580));
+        veiculos.add(new Veiculo("Fiat", "Mobi", 1, 6711));
+        veiculos.add(new Veiculo("Renaut", "Duster", 2, 0));
+        veiculos.add(new Veiculo("Fiat", "Ducato", 4, 7114));
+        veiculos.add(new Veiculo("Tesla", "Model S", 3, 4900));
+
     }
 }

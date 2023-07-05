@@ -47,28 +47,24 @@ public abstract class Cliente {
     public void listarAlugados() {
         if (this.alugados.size() != 0) {
 
-            System.out.println("CARROS LOCADOS:");
+            System.out.println("VEÍCULOS LOCADOS:");
             for (Veiculo veiculo : alugados) {
-                System.out.printf("Carro: %s/%s - Categoria: %s - Data de Locação: %s\n", veiculo.getMarca(),
+                System.out.printf("Veículo: %s/%s - Categoria: %s - Data de Locação: %s\n", veiculo.getMarca(),
                         veiculo.getModelo(),
                         veiculo.nomeDaCategoria(),
                         veiculo.getDataDeLocacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             }
         } else {
-            System.out.println("SEM CARROS LOCADOS");
+            System.out.println("SEM VEÍCULOS LOCADOS");
 
         }
     }
 
     // Métodos que realiza a devolução do carro
     public void devolverCarro(Veiculo veiculo, LocalDate data, int kms) {
-        if (this.alugados.contains(veiculo)) {
-            veiculo.devolver(data, kms);
-            this.alugados.remove(veiculo);
-            System.out.println("Veículo devolvido com sucesso!");
-        } else {
-            System.out.println("Esse cliente não possui o veículo informado alugado.");
-        }
+        System.out.println("\nVeículo devolvido com sucesso!");
+        veiculo.devolver(data, kms);
+        this.alugados.remove(veiculo);
 
     }
 
