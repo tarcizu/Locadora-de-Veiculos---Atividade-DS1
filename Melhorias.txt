@@ -1,7 +1,7 @@
 ============ BUGS =============
 LOCAR VEÍCULO 
-- Está cadastrando veículo sem nome;
-- Está cadastrando cliente sem nome;
+- Está cadastrando veículo sem nome; ***resolvido**
+- Está cadastrando cliente PF e PJ sem nome; ***resolvido**
 - Está aceitando "-1";
 - Pressione qualquer tecla para continuar => Pressione ENTER para continuar
 - Quando um veículo é locado e sai do array, quando outro cliente vai locar o array troca a ordem do ID
@@ -23,7 +23,6 @@ LOCAR VEÍCULO
 - Inserir um campo para outros custos como: tx de limpeza, completar tanque, etc;
 - Inserir campo como: tx de seguro, etc;
 - Ao devolver o veícuo, informar o km inicial para facilitar o calculo da devolução;
-
 
 
 

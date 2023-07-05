@@ -113,7 +113,7 @@ public class Veiculo {
         }
         System.out.printf("\nTOTAL: R$%.2f\n", total);
         System.out.println("\n--------------FIM----------------\n\n");
-        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
         sc.nextLine();
 
     }
@@ -191,6 +191,12 @@ public class Veiculo {
         String marca = sc.nextLine();
         System.out.print("Digite o Modelo do Veiculo: ");
         String modelo = sc.nextLine();
+        if (marca.isEmpty() || modelo.isEmpty()) {
+            System.out.println("Campos Marca ou Modelo do veículo não podem estar vazios");
+            System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
+            sc.nextLine();
+            return null;
+        }
         System.out.print(
                 "Digite a categoria do Veiculo: \n1 - Econômico\n2 - Intermediário\n3 - Executivo\n4 - Utilitário\n\nEscolha: ");
         int categoria = 0;

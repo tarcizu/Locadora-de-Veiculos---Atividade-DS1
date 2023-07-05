@@ -55,7 +55,7 @@ public class App {
                             menuDoCliente(clienteAtual, veiculos, dataDeHoje);
                         } else {
                             System.out.println("\nCPF não encontrado!\n");
-                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                            System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                             sc.nextLine();
 
                         }
@@ -74,14 +74,14 @@ public class App {
                             menuDoCliente(clienteAtual, veiculos, dataDeHoje);
                         } else {
                             System.out.println("\nCNPJ não encontrado!\n");
-                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                            System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                             sc.nextLine();
 
                         }
 
                     } else {
                         System.out.println("\nOpção digitada invalida\n");
-                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                         sc.nextLine();
                         sc.nextLine();
 
@@ -89,7 +89,9 @@ public class App {
                     clienteAtual = null;
                     break;
                 case 2:
-                    veiculos.add(Veiculo.cadastrarVeiculo());
+                    if (veiculos != null) {
+                        veiculos.add(Veiculo.cadastrarVeiculo());
+                    }
                     break;
                 case 3:
                     System.out.print(
@@ -116,11 +118,11 @@ public class App {
                             int posicao = veiculos.indexOf(carro);
                             System.out.println("ID: " + posicao + "\n" + carro);
                         }
-                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                         sc.nextLine();
                     } else {
                         System.out.println("\nNão existe veículos cadastrados\n");
-                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                         sc.nextLine();
                     }
                     break;
@@ -134,12 +136,12 @@ public class App {
                             System.out.println("\n");
 
                         }
-                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                         sc.nextLine();
 
                     } else {
                         System.out.println("\nNão existe clientes cadastrados\n");
-                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                         sc.nextLine();
 
                     }
@@ -198,7 +200,7 @@ public class App {
 
                         } else {
                             System.out.println("\nID digitado invalido\n");
-                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                            System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                             sc.nextLine();
                             sc.nextLine();
                             continue;
@@ -207,7 +209,7 @@ public class App {
                     } else {
                         System.out.println("Não existe Veículos Disponíveis\n");
 
-                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                         sc.nextLine();
                         sc.nextLine();
                     }
@@ -234,7 +236,7 @@ public class App {
                             int kmAtual = sc.nextInt();
                             if (kmAtual < alugados.get(IDVeiculoDevolucao).getkmRodado()) {
                                 System.out.println("\nQuilometragem informada invalida\n");
-                                System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                                System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                                 sc.nextLine();
                                 sc.nextLine();
                                 continue;
@@ -246,7 +248,7 @@ public class App {
 
                         } else {
                             System.out.println("\nID digitado invalido\n");
-                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                            System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                             sc.nextLine();
                             sc.nextLine();
                             continue;
@@ -255,7 +257,7 @@ public class App {
 
                     } else {
                         System.out.println("Cliente não possui Veículos locados\n");
-                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                         sc.nextLine();
                         sc.nextLine();
                         continue;
@@ -285,7 +287,7 @@ public class App {
                             int kmAtual = sc.nextInt();
                             if (kmAtual < alugados2.get(IDVeiculoDevolucao).getkmRodado()) {
                                 System.out.println("\nQuilometragem informada invalida\n");
-                                System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                                System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                                 sc.nextLine();
                                 sc.nextLine();
                                 continue;
@@ -296,7 +298,7 @@ public class App {
 
                         } else {
                             System.out.println("\nID digitado invalido\n");
-                            System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                            System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                             sc.nextLine();
                             sc.nextLine();
                             continue;
@@ -305,7 +307,7 @@ public class App {
 
                     } else {
                         System.out.println("Cliente não possui Veículos locados\n");
-                        System.out.print("APERTE QUALQUER TECLA PARA CONTINUAR...");
+                        System.out.print("APERTE ENTER TECLA PARA CONTINUAR...");
                         sc.nextLine();
                         sc.nextLine();
                         continue;
